@@ -243,3 +243,4 @@ h1 em { font-style: normal; color: var(--brand); }
   .hero, .studio-band, .feature-card { grid-template-columns: minmax(0, 1fr); }
   .list-card { grid-template-columns: auto minmax(0, 1fr); }
 }
+.copyright { text-align: center; font-size: 13px; color: var(--ink-soft); max-width: 52ch; margin: -24px auto 40px; }
