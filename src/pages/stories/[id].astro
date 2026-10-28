@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { readingMinutes } from '../../lib/reading';
+
+export async function getStaticPaths() {
+  const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
+  return stories.map((story, i) => ({
+    params: { id: story.id },
+    props: { story, prev: stories[i - 1], next: stories[i + 1] },
+  }));
+}
+
+const { story, prev, next } = Astro.props;
+const { Content } = await render(story);
+const d = story.data;
+---
+<Base title={d.title} description={d.blurb}>
+  <article class={`reader accent-${d.accent}`}>
+    <header class="reader-head">
+      <a class="back" href="/stories/">← All stories</a>
+      <span class="reader-emoji" aria-hidden="true">{d.emoji}</span>
+      <span class="tag">Story {d.order} · {d.theme}</span>
+      <h1>{d.title}</h1>
+      <p class="reader-blurb">{d.blurb}</p>
+      <span class="meta">Ages {d.ages} · {readingMinutes(story.body)} min read · by SidJam Studio</span>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <p class="the-end">The End</p>
+
+    <nav class="pager" aria-label="More stories">
+      {prev ? <a href={`/stories/${prev.id}/`}><small>← Previous</small><strong>{prev.data.title}</strong></a> : <span />}
+      {next ? <a class="next" href={`/stories/${next.id}/`}><small>Next →</small><strong>{next.data.title}</strong></a> : <a class="next" href="/stories/"><small>Finished!</small><strong>Back to all stories</strong></a>}
+    </nav>
+  </article>
+</Base>

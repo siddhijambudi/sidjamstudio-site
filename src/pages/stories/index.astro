@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { readingMinutes } from '../../lib/reading';
+
+const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Stories" description="Read every SidJam Studio story: original, funny, heartfelt tales for kids aged 5 to 13.">
+  <section class="page-head">
+    <span class="kicker">The library</span>
+    <h1>All stories</h1>
+    <p class="lead">Five stories so far, and more are being written. Pick one, get comfortable, and start reading.</p>
+  </section>
+
+  <ol class="story-list">
+    {stories.map((s) => (
+      <li>
+        <a class={`list-card accent-${s.data.accent}`} href={`/stories/${s.id}/`}>
+          <span class="list-num">{String(s.data.order).padStart(2, '0')}</span>
+          <span class="story-emoji" aria-hidden="true">{s.data.emoji}</span>
+          <div>
+            <h2>{s.data.title}</h2>
+            <p>{s.data.blurb}</p>
+            <span class="meta">{s.data.theme} · Ages {s.data.ages} · {readingMinutes(s.body)} min read</span>
+          </div>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</Base>

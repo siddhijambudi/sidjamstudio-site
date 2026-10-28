@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { readingMinutes } from '../lib/reading';
+
+const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
+const [featured, ...rest] = stories;
+---
+<Base>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="kicker">An independent story studio</span>
+      <h1>Stories that make kids<br /><em>laugh, wonder, and try.</em></h1>
+      <p class="lead">
+        SidJam Studio writes original stories for readers aged 5 to 13. They're funny
+        and a little chaotic, and each one hides an idea worth keeping: courage, honesty,
+        listening, money sense, or how a computer thinks.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="/stories/">Read the stories</a>
+        <a class="btn ghost" href="/about/">About the studio</a>
+      </div>
+    </div>
+    <div class="hero-shelf" aria-hidden="true">
+      {stories.map((s, i) => (
+        <span class={`spine accent-${s.data.accent}`} style={`--i:${i}`}>
+          <span>{s.data.title}</span>
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <section class="featured">
+    <a class={`feature-card accent-${featured.data.accent}`} href={`/stories/${featured.id}/`}>
+      <span class="feature-emoji" aria-hidden="true">{featured.data.emoji}</span>
+      <div>
+        <span class="tag">Start here · Story {featured.data.order}</span>
+        <h2>{featured.data.title}</h2>
+        <p>{featured.data.blurb}</p>
+        <span class="meta">Ages {featured.data.ages} · {readingMinutes(featured.body)} min read · {featured.data.theme}</span>
+      </div>
+    </a>
+  </section>
+
+  <section>
+    <h2 class="section-title">More from the shelf</h2>
+    <div class="story-grid">
+      {rest.map((s) => (
+        <a class={`story-card accent-${s.data.accent}`} href={`/stories/${s.id}/`}>
+          <span class="story-emoji" aria-hidden="true">{s.data.emoji}</span>
+          <span class="tag">{s.data.theme}</span>
+          <h3>{s.data.title}</h3>
+          <p>{s.data.blurb}</p>
+          <span class="meta">Ages {s.data.ages} · {readingMinutes(s.body)} min read</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="studio-band">
+    <div>
+      <span class="kicker">What's next</span>
+      <h2>Stories first. More ventures later.</h2>
+      <p>
+        Stories are the first thing we're making. New ones are on the way, and later the studio
+        will grow into other projects. Each new venture will get its own page here.
+      </p>
+    </div>
+    <ul class="roadmap">
+      <li class="live"><strong>Stories</strong><span>Live now · 5 stories</span></li>
+      <li><strong>Illustrated editions</strong><span>In progress</span></li>
+      <li><strong>New ventures</strong><span>Coming soon</span></li>
+    </ul>
+  </section>
+</Base>

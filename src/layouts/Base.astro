@@ -1,0 +1,63 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = 'SidJam Studio — original stories for curious kids, and a home for the ideas that come next.' } = Astro.props;
+const fullTitle = title ? `${title} · SidJam Studio` : 'SidJam Studio';
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/stories/', label: 'Stories' },
+  { href: '/about/', label: 'About' },
+];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=20261028" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="SidJam Studio home">
+      <span class="brand-mark" aria-hidden="true">SJ</span>
+      <span class="brand-copy">
+        <strong>SidJam Studio</strong>
+        <small>Stories &amp; ideas, made with care</small>
+      </span>
+    </a>
+    <nav>
+      {nav.map((n) => (
+        <a href={n.href} aria-current={(n.href === '/' ? path === '/' : path.startsWith(n.href)) ? 'page' : undefined}>{n.label}</a>
+      ))}
+    </nav>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="footer">
+    <div>
+      <strong>SidJam Studio</strong>
+      <p>Original stories for curious kids — and more to come.</p>
+    </div>
+    <div class="footer-links">
+      <a href="/stories/">All stories</a>
+      <a href="/about/">About the studio</a>
+      <a href="mailto:hello@sidjamstudio.com">hello@sidjamstudio.com</a>
+    </div>
+    <p class="fine">© {new Date().getFullYear()} SidJam Studio. All stories are original works; please don't reproduce without permission.</p>
+  </footer>
+</body>
+</html>
