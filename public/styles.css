@@ -286,3 +286,5 @@ h1 em { font-style: normal; color: var(--brand); }
   .prose table { font-size: 14px; }
   .prose th, .prose td { padding: 8px 6px; }
 }
+/* Plays have no "The End" above the notice, so give it its own breathing room */
+.reader.play .copyright { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); }
