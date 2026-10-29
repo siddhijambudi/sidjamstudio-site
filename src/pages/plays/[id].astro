@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const plays = await getCollection('plays');
+  return plays.map((play) => ({ params: { id: play.id }, props: { play } }));
+}
+
+const { play } = Astro.props;
+const { Content } = await render(play);
+const d = play.data;
+---
+<Base title={d.title} description={d.blurb}>
+  <article class={`reader play accent-${d.accent}`}>
+    <header class="reader-head">
+      <a class="back" href="/plays/">← All plays</a>
+      <span class="reader-emoji" aria-hidden="true">{d.emoji}</span>
+      <span class="tag">A {d.occasion} play</span>
+      <h1>{d.title}</h1>
+      <p class="reader-blurb">{d.blurb}</p>
+      <ul class="play-facts">
+        <li><strong>Runtime</strong>{d.runtime}</li>
+        <li><strong>Cast</strong>{d.cast}</li>
+        <li><strong>Ages</strong>{d.ages}</li>
+      </ul>
+      <button class="btn ghost print-btn" type="button" onclick="window.print()">Print the script</button>
+    </header>
+
+    <div class="prose script">
+      <Content />
+    </div>
+
+    <p class="copyright">© {new Date().getFullYear()} SidJam Studio. Free to perform at home, at school, and at community events. Please don't republish the script or perform it commercially without written permission.</p>
+  </article>
+</Base>

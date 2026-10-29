@@ -5,6 +5,7 @@ import { readingMinutes } from '../lib/reading';
 
 const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
 const [featured, ...rest] = stories;
+const plays = (await getCollection('plays')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base>
   <section class="hero">
@@ -57,6 +58,21 @@ const [featured, ...rest] = stories;
     </div>
   </section>
 
+  <section>
+    <h2 class="section-title">New: plays to perform</h2>
+    {plays.map((p) => (
+      <a class={`feature-card accent-${p.data.accent}`} href={`/plays/${p.id}/`}>
+        <span class="feature-emoji" aria-hidden="true">{p.data.emoji}</span>
+        <div>
+          <span class="tag">A {p.data.occasion} play · {p.data.runtime}</span>
+          <h2>{p.data.title}</h2>
+          <p>{p.data.blurb}</p>
+          <span class="meta">{p.data.cast}</span>
+        </div>
+      </a>
+    ))}
+  </section>
+
   <section class="studio-band">
     <div>
       <span class="kicker">What's next</span>
@@ -68,8 +84,8 @@ const [featured, ...rest] = stories;
     </div>
     <ul class="roadmap">
       <li class="live"><strong>Stories</strong><span>Live now · 5 stories</span></li>
-      <li><strong>Illustrated editions</strong><span>In progress</span></li>
-      <li><strong>New ventures</strong><span>Coming soon</span></li>
+      <li class="live"><strong>Plays</strong><span>Live now · {plays.length} play</span></li>
+            <li><strong>New ventures</strong><span>Coming soon</span></li>
     </ul>
   </section>
 </Base>

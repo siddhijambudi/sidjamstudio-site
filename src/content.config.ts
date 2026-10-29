@@ -14,4 +14,19 @@ const stories = defineCollection({
   }),
 });
 
-export const collections = { stories };
+const plays = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/plays' }),
+  schema: z.object({
+    title: z.string(),
+    order: z.number(),
+    blurb: z.string(),
+    occasion: z.string(),
+    runtime: z.string(),
+    cast: z.string(),
+    ages: z.string(),
+    accent: z.enum(['sun', 'sky', 'leaf', 'berry', 'grape']),
+    emoji: z.string(),
+  }),
+});
+
+export const collections = { stories, plays };

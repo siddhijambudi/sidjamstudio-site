@@ -254,3 +254,35 @@ h1 em { font-style: normal; color: var(--brand); }
 @media (min-width: 821px) {
   .prose figure.art.wide { width: auto; margin-left: -60px; margin-right: -60px; }
 }
+
+/* Tables (cast lists, who-is-who) */
+.prose table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 16px; line-height: 1.5; margin: 1.2em 0 1.8em; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.prose th { font-weight: 800; color: var(--ink-soft); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+.prose blockquote {
+  margin: 1.2em 0; padding: 18px 22px; border-radius: 14px; background: var(--paper-2);
+  border-left: 5px solid var(--accent, var(--brand));
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+/* Plays */
+.play-facts { list-style: none; padding: 0; margin: 20px auto 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.play-facts li { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 8px 14px; font-size: 14px; text-align: left; }
+.play-facts strong { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.print-btn { margin-top: 20px; background: none; font: inherit; font-weight: 800; cursor: pointer; }
+.script h3 { font-family: var(--serif); font-size: 22px; margin: 1.8em 0 .6em; padding-top: .8em; border-top: 1px dashed var(--line); }
+/* A paragraph that is only an italic run is a stage direction */
+.script p:has(> em:only-child) { font-family: var(--sans); font-size: 16px; color: var(--ink-soft); padding-left: 14px; border-left: 3px solid var(--line); }
+.reader.play .prose > p:first-of-type::first-letter { float: none; font: inherit; color: inherit; padding: 0; }
+
+@media print {
+  .topbar, .footer, .back, .print-btn, .reader-emoji { display: none !important; }
+  body { background: #fff; color: #000; font-size: 12pt; }
+  .prose { font-size: 12pt; line-height: 1.5; }
+  .prose a { color: #000; }
+  .script h3 { break-after: avoid; }
+}
+@media (max-width: 820px) {
+  .prose table { font-size: 14px; }
+  .prose th, .prose td { padding: 8px 6px; }
+}

@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const plays = (await getCollection('plays')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Plays" description="Plays and scripts from SidJam Studio for kids to perform together at festivals, schools, and family gatherings.">
+  <section class="page-head">
+    <span class="kicker">On stage</span>
+    <h1>Plays to perform together</h1>
+    <p class="lead">
+      Short scripts for kids to act out at festivals, in classrooms, or in the living room.
+      Each play comes with the full script, a cast list, props, and questions to talk about afterwards.
+      Free to perform with friends and family.
+    </p>
+  </section>
+
+  <ol class="story-list">
+    {plays.map((p) => (
+      <li>
+        <a class={`list-card accent-${p.data.accent}`} href={`/plays/${p.id}/`}>
+          <span class="list-num">{String(p.data.order).padStart(2, '0')}</span>
+          <span class="story-emoji" aria-hidden="true">{p.data.emoji}</span>
+          <div>
+            <h2>{p.data.title}</h2>
+            <p>{p.data.blurb}</p>
+            <span class="meta">{p.data.occasion} · {p.data.runtime} · {p.data.cast}</span>
+          </div>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</Base>
