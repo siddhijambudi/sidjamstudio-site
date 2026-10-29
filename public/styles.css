@@ -193,7 +193,7 @@ h1 em { font-style: normal; color: var(--brand); }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li { margin-bottom: .6em; }
 .prose a { color: var(--brand); }
-.reader .prose > p:first-child::first-letter {
+.reader .prose > p:first-of-type::first-letter {
   float: left; font-family: var(--serif); font-weight: 700; font-size: 3.6em; line-height: .85;
   padding: .06em .1em 0 0; color: var(--accent);
 }
@@ -245,11 +245,12 @@ h1 em { font-style: normal; color: var(--brand); }
 }
 .copyright { text-align: center; font-size: 13px; color: var(--ink-soft); max-width: 52ch; margin: -24px auto 40px; }
 
-/* Story illustrations */
-.prose img {
-  display: block; width: 100%; height: auto; border-radius: 16px; margin: 2em 0;
-  box-shadow: var(--shadow);
+/* Story illustrations. Images cut from a collage are small, so cap them at ~1.6x
+   their natural width to keep them sharp; full-size art (.wide) can break out. */
+.prose figure.art { margin: 2.2em auto; width: min(100%, calc(var(--w) * 1.6)); }
+.prose figure.art img {
+  display: block; width: 100%; height: auto; border-radius: 16px; box-shadow: var(--shadow);
 }
 @media (min-width: 821px) {
-  .prose p:has(> img) { margin: 2.2em -60px; }
+  .prose figure.art.wide { width: auto; margin-left: -60px; margin-right: -60px; }
 }
