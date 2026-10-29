@@ -96,7 +96,7 @@ You can say something like this before the play, or after the bows:
 
 **RAM:** Search every direction. North, east, west. Hanuman, you go south. *(beat)* And when you find her, bring me proof. Bring me her chudamani, the jewel she wears in her hair. Then I will know.
 
-<figure class="art" style="--w:486px"><img src="/images/the-jewel-that-wasnt/mission.jpg" width="486" height="207" alt="Ram raises his hand to give the mission as Nala, a shouting Angad, and old Jambavan listen." loading="lazy" /></figure>
+<figure class="art" style="--w:494px"><img src="/images/the-jewel-that-wasnt/mission.jpg" width="494" height="209" alt="Ram sits in the forest, worried for Sita, as Hanuman, the monkeys, and old Jambavan gather around him." loading="lazy" /></figure>
 
 **ANGAD:** *(leaping up)* FOR RAM!
 
@@ -106,7 +106,7 @@ You can say something like this before the play, or after the bows:
 
 *RAM walks slowly to the far edge of the stage and sits, facing away. He stays there until Scene 6.*
 
-<figure class="art" style="--w:533px"><img src="/images/the-jewel-that-wasnt/south-alone.jpg" width="533" height="207" alt="Hanuman walks south alone at sunset while the monkey army rushes off together and Ram waits on a rock." loading="lazy" /></figure>
+<figure class="art" style="--w:458px"><img src="/images/the-jewel-that-wasnt/south-alone.jpg" width="458" height="209" alt="Hanuman walks south alone at sunset while the monkey army rushes off together and Ram waits on a rock." loading="lazy" /></figure>
 
 ### Scene 2 — Forty Days
 
@@ -124,7 +124,7 @@ You can say something like this before the play, or after the bows:
 
 *One kid becomes a very slow tortoise. The chorus waits. And waits. The tortoise shakes its head.*
 
-<figure class="art" style="--w:493px"><img src="/images/the-jewel-that-wasnt/forty-days.jpg" width="493" height="168" alt="Monkeys search inside hollow logs and wait on a very slow tortoise." loading="lazy" /></figure>
+<figure class="art" style="--w:576px"><img src="/images/the-jewel-that-wasnt/forty-days.jpg" width="576" height="209" alt="Monkeys search inside hollow logs and wait on a very slow tortoise." loading="lazy" /></figure>
 
 **NARRATOR:** There was no Sita in the north. No Sita in the east. No Sita in the west. By the fortieth night, three hundred monkeys sat around a fire with nothing to show.
 
@@ -178,7 +178,7 @@ You can say something like this before the play, or after the bows:
 
 **NARRATOR:** And so, that night, three hundred monkeys crept over the hill and into the peaceful kingdom of Ratnapur. A kingdom that had never done anything to anyone.
 
-<figure class="art" style="--w:577px"><img src="/images/the-jewel-that-wasnt/over-the-hill.jpg" width="577" height="168" alt="The monkey army creeps over the moonlit hill toward the glowing kingdom of Ratnapur." loading="lazy" /></figure>
+<figure class="art" style="--w:525px"><img src="/images/the-jewel-that-wasnt/over-the-hill.jpg" width="525" height="161" alt="The monkey army creeps over the moonlit hill toward the glowing kingdom of Ratnapur." loading="lazy" /></figure>
 
 ### Scene 4 — Ratnapur
 
@@ -187,6 +187,8 @@ You can say something like this before the play, or after the bows:
 **NARRATOR:** The jewellers' workshop had one small window. And a small window needs a small monkey.
 
 *The LITTLEST MONKEY is passed forward over everyone's heads, wriggles through the frame, and "opens the door" with a big dramatic gesture.*
+
+<figure class="art" style="--w:421px"><img src="/images/the-jewel-that-wasnt/window.jpg" width="421" height="161" alt="The Littlest Monkey squeezes through the small carved window while the other monkeys push behind." loading="lazy" /></figure>
 
 **NARRATOR:** And that was the end of "just a peek."
 
@@ -204,19 +206,21 @@ You can say something like this before the play, or after the bows:
 
 **JAMBAVAN:** *(alone at the edge, to the audience)* I did say.
 
-<figure class="art" style="--w:663px"><img src="/images/the-jewel-that-wasnt/vault-chaos.jpg" width="663" height="141" alt="Monkeys raid the vault for sweets and pearls, one wearing a stuck crown, while Jambavan sits apart." loading="lazy" /></figure>
+<figure class="art" style="--w:602px"><img src="/images/the-jewel-that-wasnt/vault-chaos.jpg" width="602" height="156" alt="Monkeys raid the vault for sweets and pearls, one wearing a stuck crown, while Jambavan sits apart." loading="lazy" /></figure>
 
 *The JEWELLER enters in a nightcap, holding one broken lamp, and surveys the wreckage.*
 
 **JEWELLER:** *(tired)* I have never. Even. Met. Ram.
 
-<figure class="art" style="--w:494px"><img src="/images/the-jewel-that-wasnt/bell.jpg" width="494" height="141" alt="The Jeweller of Ratnapur in his nightcap stands by the great bell as the monkeys freeze." loading="lazy" /></figure>
+<figure class="art" style="--w:386px"><img src="/images/the-jewel-that-wasnt/bell.jpg" width="386" height="156" alt="The Jeweller of Ratnapur rings the great bell as the monkeys freeze among the scattered pearls." loading="lazy" /></figure>
 
 **NARRATOR:** And then the Jeweller of Ratnapur rang the great bell.
 
 *The JEWELLER strikes the BELL. Everyone freezes.*
 
 **NARRATOR:** Every gate in Ratnapur slammed shut. Every door was barred. The monkeys were swept out of the palace with brooms, out of the city with buckets of water, and over the hill with a lot of words that are not in this play.
+
+<figure class="art" style="--w:540px"><img src="/images/the-jewel-that-wasnt/swept-out.jpg" width="540" height="156" alt="The people of Ratnapur chase the monkeys out of the city with brooms and buckets of water." loading="lazy" /></figure>
 
 *The chorus is chased back across the stage by an imaginary broom, tumbling over each other, until they land in a heap back at their "campfire."*
 
@@ -233,6 +237,8 @@ You can say something like this before the play, or after the bows:
 **NARRATOR:** And that is when Hanuman came back from the south.
 
 **HANUMAN:** I found her. She is alive. She gave me this with her own hand.
+
+<figure class="art" style="--w:447px"><img src="/images/the-jewel-that-wasnt/hanuman-returns.jpg" width="447" height="251" alt="Hanuman holds up the glowing jewel while the sticky, ashamed monkeys and Jambavan look on." loading="lazy" /></figure>
 
 *He holds out the chudamani. The chorus should cheer. Instead they look at their feet.*
 
@@ -268,7 +274,7 @@ You can say something like this before the play, or after the bows:
 
 *He waits. Count to five. It should feel too long.*
 
-<figure class="art" style="--w:513px"><img src="/images/the-jewel-that-wasnt/ram-waits.jpg" width="513" height="130" alt="Ram waits at the gate holding a diya while the Jeweller stands with his arms crossed." loading="lazy" /></figure>
+<figure class="art" style="--w:335px"><img src="/images/the-jewel-that-wasnt/ram-waits.jpg" width="335" height="251" alt="Ram waits at the gate holding a diya while the Jeweller stands with his arms crossed." loading="lazy" /></figure>
 
 **JEWELLER:** *(softer, stepping aside)* …open it.
 
@@ -277,6 +283,8 @@ You can say something like this before the play, or after the bows:
 **NARRATOR:** And the vanar sena, every single one, came back to Ratnapur. Not to search this time. To sweep. To hammer. To carry. To put the pearls back on the stairs, one by one.
 
 *The chorus picks up every pearl and every sweet, and straightens the window frame. The LITTLEST MONKEY empties a pocket full of hidden sweets back into the bowl, very slowly. This gets a laugh; let it.*
+
+<figure class="art" style="--w:319px"><img src="/images/the-jewel-that-wasnt/putting-it-right.jpg" width="319" height="251" alt="The monkeys repair the workshop as the Littlest Monkey returns the sweets and the Jeweller watches." loading="lazy" /></figure>
 
 **NARRATOR:** On the night the workshop was finished, the Jeweller lit one small lamp.
 
@@ -294,7 +302,7 @@ You can say something like this before the play, or after the bows:
 
 **NARRATOR:** And this time, everybody heard him.
 
-<figure class="art" style="--w:456px"><img src="/images/the-jewel-that-wasnt/ratnapur-glows.jpg" width="456" height="152" alt="Ratnapur glows with diyas as Hanuman holds up the jewel, Ram lights his diya, and Jambavan looks on." loading="lazy" /></figure>
+<figure class="art" style="--w:424px"><img src="/images/the-jewel-that-wasnt/ratnapur-glows.jpg" width="424" height="251" alt="Ratnapur glows with diyas as Hanuman holds up the jewel, Ram lights his diya, and Jambavan looks on." loading="lazy" /></figure>
 
 *Hold. Then bows.*
 
