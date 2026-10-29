@@ -10,7 +10,7 @@ accent: "sun"
 emoji: "🪔"
 ---
 
-<figure class="art" style="--w:509px"><img src="/images/the-jewel-that-wasnt/cover.jpg" width="509" height="207" alt="Hanuman holds up the glowing jewel beside Ram with a diya, surrounded by monkeys and Jambavan, with Ratnapur glowing on the hill." loading="lazy" /></figure>
+<figure class="art wide" style="--w:1555px"><img src="/images/the-jewel-that-wasnt/cover.jpg" width="1555" height="709" alt="Hanuman offers the jewel to Ram, who sits on a rock among the monkeys, Jambavan, and glowing diyas, with Ratnapur lit up on the hill behind them." loading="lazy" /></figure>
 
 ## Why we wrote this play
 
