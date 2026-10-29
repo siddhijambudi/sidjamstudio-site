@@ -30,6 +30,8 @@ Then he went inside and returned with a faded book wrapped in a napkin. "Here," 
 
 Leo read the title aloud: *My Experiments with Truth — M.K. Gandhi.* Mr. Green smiled. "He believed hunger could be stronger than anger."
 
+![Mr. Green hands Leo an old copy of The Story of My Experiments with Truth by M.K. Gandhi while Maple sniffs the book, on the porch at sunset.](/images/mohan-and-me/the-gift-of-the-book.jpg)
+
 That night, Leo read until the pages blurred. He didn't understand everything, but he liked how Gandhi made truth sound like a game you could play with courage. By morning, Leo had decided to play.
 
 ---

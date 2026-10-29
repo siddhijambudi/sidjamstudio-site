@@ -244,3 +244,12 @@ h1 em { font-style: normal; color: var(--brand); }
   .list-card { grid-template-columns: auto minmax(0, 1fr); }
 }
 .copyright { text-align: center; font-size: 13px; color: var(--ink-soft); max-width: 52ch; margin: -24px auto 40px; }
+
+/* Story illustrations */
+.prose img {
+  display: block; width: 100%; height: auto; border-radius: 16px; margin: 2em 0;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 821px) {
+  .prose p:has(> img) { margin: 2.2em -60px; }
+}
