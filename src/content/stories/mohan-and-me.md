@@ -66,7 +66,7 @@ Days passed. Leo looked for "real unfair things," but nothing stuck — until on
 
 That afternoon, Leo sat beside the leaky fountains with a cardboard sign: **"WATER IS PRECIOUS — NOT A PLAYTHING."** He refused to drink until they were fixed. At first, everyone laughed. Then one friend joined him. Then another. By the next day, half the school sat quietly during recess, holding paper signs.
 
-<figure class="art" style="--w:328px"><img src="/images/mohan-and-me/fountain.jpg" width="328" height="308" alt="Leo and his classmates sit peacefully by the leaking fountains holding signs." loading="lazy" /></figure>
+<figure class="art" style="--w:902px"><img src="/images/mohan-and-me/fountain.jpg" width="902" height="807" alt="Leo sits by the leaking fountain holding a cardboard sign reading Water is precious, not a plaything, with classmates holding drawings of the Earth, a water drop, and a sprout." loading="lazy" /></figure>
 
 Teachers whispered. The principal frowned. Reporters came.
 
