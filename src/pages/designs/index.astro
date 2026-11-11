@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import { designs, mailtoFor, CONTACT_EMAIL, ETSY_URL } from '../../data/designs';
+---
+<Base title="Designs" description="Indian folk art meets streetwear: original tee designs from SidJam Studio. Email us to order, or ask for a custom design.">
+  <section class="page-head">
+    <span class="kicker">Wearable art</span>
+    <h1>Indian folk art, <em>worn loud.</em></h1>
+    <p class="lead">
+      Warli, Madhubani, Pattachitra, Kalamkari and more, redrawn with a streetwear attitude and
+      printed on black or white tees. See something you like? Email us and we'll take it from there.
+    </p>
+    <div class="actions">
+      <a class="btn primary" href={mailtoFor()}>Ask for a custom design</a>
+      <a class="btn ghost" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">The designs</h2>
+    <div class="design-grid">
+      {designs.map((d) => (
+        <article class={`design-card accent-${d.accent}`} data-design>
+          <div class="design-img">
+            <img src={`/images/designs/${d.slug}-black.jpg`} alt={`${d.title} design on a black tee`} loading="lazy" width="1000" height="1000" data-slug={d.slug} />
+          </div>
+          <div class="design-body">
+            <span class="tag">{d.art} · {d.region}</span>
+            <h3>{d.title}</h3>
+            <div class="swatches" role="group" aria-label="Tee color">
+              <button type="button" class="swatch black" data-color="black" aria-pressed="true" aria-label="Show on black tee"></button>
+              <button type="button" class="swatch white" data-color="white" aria-pressed="false" aria-label="Show on white tee"></button>
+            </div>
+            <a class="btn primary small" href={mailtoFor(d.title)}>Email us about this design</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="studio-band how-band">
+    <div>
+      <span class="kicker">How ordering works</span>
+      <h2>Just send us an email.</h2>
+      <p>
+        Tell us the design, the tee color (black or white), your size and how many. We'll reply
+        with the price and how to pay, and print it for you. No account, no checkout.
+      </p>
+    </div>
+    <ul class="roadmap">
+      <li><strong>1. Pick a design</strong><span>from this page</span></li>
+      <li><strong>2. Email us</strong><span>{CONTACT_EMAIL}</span></li>
+      <li><strong>3. We reply</strong><span>price + payment details</span></li>
+    </ul>
+  </section>
+
+  <section class="studio-band custom-band">
+    <div>
+      <span class="kicker">Also from SidJam Studio</span>
+      <h2>Our Etsy shop: work &amp; job humor tees</h2>
+      <p>
+        Over on <a href={ETSY_URL} rel="noopener">our Etsy shop</a> we sell funny tees for the workday: witty, sarcastic lines and animal characters
+        about meetings, emails and deadlines, made for anyone who works for a living.
+        If you like one, email us the listing name at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and we'll sort it out.
+        We can also create a custom design from your idea, your family's story, or a favorite art form.
+      </p>
+      <div class="actions">
+        {ETSY_URL && <a class="btn ghost" href={ETSY_URL} rel="noopener">Visit our Etsy shop</a>}
+        <a class="btn primary" href={mailtoFor()}>Start a custom design</a>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll('[data-design]').forEach(function (card) {
+      var img = card.querySelector('img');
+      card.querySelectorAll('.swatch').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var c = btn.getAttribute('data-color');
+          img.src = '/images/designs/' + img.getAttribute('data-slug') + '-' + c + '.jpg';
+          img.alt = img.alt.replace(/on a (black|white) tee/, 'on a ' + c + ' tee');
+          card.querySelectorAll('.swatch').forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        });
+      });
+    });
+  </script>
+</Base>
