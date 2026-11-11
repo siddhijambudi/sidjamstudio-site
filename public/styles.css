@@ -307,3 +307,4 @@ h1 em { font-style: normal; color: var(--brand); }
 .swatch.black { background: #151515; }
 .swatch.white { background: #fff; }
 .swatch[aria-pressed='true'] { outline: 2px solid var(--brand); outline-offset: 2px; }
+.roadmap li a { display: flex; justify-content: space-between; gap: 12px; width: 100%; color: inherit; text-decoration: none; }

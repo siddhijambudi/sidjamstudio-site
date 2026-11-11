@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { readingMinutes } from '../lib/reading';
+import { designs } from '../data/designs';
 
 const stories = (await getCollection('stories')).sort((a, b) => a.data.order - b.data.order);
 const [featured, ...rest] = stories;
@@ -76,16 +77,17 @@ const plays = (await getCollection('plays')).sort((a, b) => a.data.order - b.dat
   <section class="studio-band">
     <div>
       <span class="kicker">What's next</span>
-      <h2>Stories first. More ventures later.</h2>
+      <h2>Now live. More ventures later.</h2>
       <p>
-        Stories are the first thing we're making. New ones are on the way, and later the studio
-        will grow into other projects. Each new venture will get its own page here.
+        Stories, plays and Indian folk art designs are live. New ones are on the way, and the studio
+        will keep growing into other projects. Each new venture will get its own page here.
       </p>
     </div>
     <ul class="roadmap">
       <li class="live"><strong>Stories</strong><span>Live now · 5 stories</span></li>
       <li class="live"><strong>Plays</strong><span>Live now · {plays.length} play</span></li>
-            <li><strong>New ventures</strong><span>Coming soon</span></li>
+      <li class="live"><a href="/designs/"><strong>Designs</strong><span>Live now · {designs.length} designs</span></a></li>
+      <li><strong>New ventures</strong><span>Coming soon</span></li>
     </ul>
   </section>
 </Base>
