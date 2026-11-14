@@ -15,7 +15,7 @@ export const designs: Design[] = [
   { slug: 'warli-streetwear', title: 'Warli Streetwear', art: 'Warli', region: 'Maharashtra', accent: 'leaf' },
   { slug: 'madhubani-streetwear', title: 'Madhubani Streetwear', art: 'Madhubani', region: 'Bihar', accent: 'berry' },
   { slug: 'pattachitra-streetwear', title: 'Pattachitra Streetwear', art: 'Pattachitra', region: 'Odisha & West Bengal', accent: 'sun' },
-  { slug: 'kutch-embroidery-streetwear', title: 'Kutch Embroidery Streetwear', art: 'Kutch embroidery', region: 'Gujarat', accent: 'sky' },
+  { slug: 'kutch-embroidery-streetwear', title: 'Kutch Bharat Streetwear', art: 'Kutch Bharat', region: 'Gujarat', accent: 'sky' },
   { slug: 'gond-face', title: 'Gond Face', art: 'Gond', region: 'Madhya Pradesh', accent: 'grape' },
   { slug: 'thanjavur-dancer', title: 'Thanjavur Dancer', art: 'Thanjavur painting', region: 'Tamil Nadu', accent: 'berry' },
   { slug: 'onam-pookalam', title: 'Onam Pookalam', art: 'Pookalam floral carpet', region: 'Kerala', accent: 'sun' },
@@ -23,7 +23,7 @@ export const designs: Design[] = [
   { slug: 'chandua-joy', title: 'Chandua Joy', art: 'Chandua appliqué', region: 'Odisha', accent: 'berry' },
   { slug: 'aipan-mandala-dancer', title: 'Aipan Mandala Dancer', art: 'Aipan', region: 'Uttarakhand', accent: 'berry' },
   { slug: 'peacock-feather', title: 'Peacock Feather', art: 'Kalamkari + Madhubani', region: 'Andhra Pradesh & Bihar', accent: 'sky' },
-  { slug: 'kachhi-bharat-verse', title: 'Kachhi Bharat Verse', art: 'Kutch-style embroidery border', region: 'Gujarat', accent: 'sun' },
+  { slug: 'kachhi-bharat-verse', title: 'Kachhi Bharat Verse', art: 'Kutch-style Bharat border', region: 'Gujarat', accent: 'sun' },
   { slug: 'pichhwai-streetwear', title: 'Pichhwai Streetwear', art: 'Pichhwai', region: 'Rajasthan', accent: 'sky' },
   { slug: 'dance-on', title: 'Dance On', art: 'Warli-inspired street art', region: 'Maharashtra', accent: 'berry' },
 ];
