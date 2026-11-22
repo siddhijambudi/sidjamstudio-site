@@ -394,3 +394,5 @@ h1 em { font-style: normal; color: var(--brand); }
 .studio-band p.mix-note { margin: 12px 0; padding: 12px 14px; border-left: 4px solid var(--brand); background: var(--card); border-radius: 10px; }
 .studio-band p.mix-note strong { color: var(--ink); }
 .basket textarea { resize: vertical; }
+
+[hidden] { display: none !important; }

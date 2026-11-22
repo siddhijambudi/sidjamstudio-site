@@ -10,7 +10,7 @@ export const SIZES = ['S', 'M', 'L'] as const;
 export const BULK = { from: 3, each: 16, bigFrom: 10, bigEach: 14 };
 // Stripe Payment Links (Dashboard → Payment Links). Leave empty until the Stripe account is set up:
 // the basket then shows only "Send order" and we reply with how to pay.
-export const STRIPE_LINKS = { one: '', two: '' };
+export const STRIPE_LINKS = { one: 'https://buy.stripe.com/4gM00i9kVcCgaYhgOB1ck00', two: 'https://buy.stripe.com/cNicN4eFf8m0d6p69X1ck01' };
 // Paste the Etsy shop link here to show an "Etsy shop" button on the Designs page.
 export const ETSY_URL = 'https://www.etsy.com/shop/SidJamStudio';
 

@@ -184,6 +184,8 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
         <label for="basket-zip">Delivery ZIP code</label>
         <input id="basket-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="94539" />
         <p class="basket-note" id="zip-msg" aria-live="polite"></p>
+        <label for="basket-address">Street address</label>
+        <textarea id="basket-address" rows="2" autocomplete="street-address" placeholder="House number, street, apartment, city"></textarea>
       </div>
       <div class="basket-field">
         <label for="basket-name">Your name</label>
@@ -205,7 +207,7 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
 
   <script is:inline define:vars={{ PRICING, BULK, STRIPE_LINKS, LOCAL_ZIPS, WHATSAPP_NUMBER, CONTACT_EMAIL }}>
     var KEY = 'sidjam-basket-v1';
-    var state = { items: [], code: '', handoff: 'pickup', zip: '', name: '', etsy: '' };
+    var state = { items: [], code: '', handoff: 'pickup', zip: '', name: '', etsy: '', address: '' };
     function etsyLines() { return (state.etsy || '').split('\n').map(function (l) { return l.trim(); }).filter(Boolean); }
     function teeCount() { return state.items.length + etsyLines().length; }
     try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && Array.isArray(saved.items)) state = Object.assign(state, saved); } catch (e) {}
@@ -232,7 +234,10 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       etsyLines().forEach(function (l, i) { lines.push((state.items.length + i + 1) + '. Etsy: ' + l); });
       lines.push('');
       if (state.handoff === 'pickup') lines.push('Pickup in Fremont');
-      else lines.push('Delivery to ZIP ' + (state.zip || '?') + (zs === 'far' ? ' (outside local area – please quote shipping)' : ''));
+      else {
+        lines.push('Delivery to: ' + (state.address || '').trim().replace(/\s*\n\s*/g, ', ') + ' ' + (state.zip || ''));
+        if (zs === 'far') lines.push('(Outside local area – please quote shipping)');
+      }
       var priceLine = n >= BULK.from ? n + ' tees × $' + eachFor(n) + ' = $' + price : '$' + price;
       if (zs === 'local') lines.push('Total: ' + priceLine);
       else lines.push('Tees: ' + priceLine + ' + shipping. Please send the total with shipping.');
@@ -269,6 +274,7 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
 
       var zm = $('zip-msg');
       zm.className = 'basket-note';
+      var needAddress = state.handoff === 'delivery' && !(state.address || '').trim();
       if (zs === 'missing') zm.textContent = 'Enter your 5-digit ZIP so we can check you are in our delivery area.';
       else if (zs === 'far') { zm.textContent = 'That ZIP is outside our free delivery area. You can still order: we\'ll message you the price with shipping.'; zm.className = 'basket-note warn'; }
       else zm.textContent = 'Great, you are in our free local delivery area.';
@@ -277,18 +283,20 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       var label = '$' + price + (n === 2 ? ' for 2 tees' : n >= BULK.from ? ' (' + n + ' × $' + eachFor(n) + ')' : '');
       total.textContent = zs === 'far' ? label + ' + shipping' : label;
 
-      var text = orderText(), ready = zs !== 'missing';
+      var text = orderText(), ready = zs !== 'missing' && !needAddress;
       var wa = $('send-whatsapp'), em = $('send-email');
       [wa, em].forEach(function (a) { a.classList.toggle('disabled', !ready); a.setAttribute('aria-disabled', String(!ready)); });
       wa.href = ready ? 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text) : '#';
       em.href = ready ? 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('Order ' + state.code) + '&body=' + encodeURIComponent(text) : '#';
 
       var link = etsyLines().length ? '' : n === 1 ? STRIPE_LINKS.one : n === 2 ? STRIPE_LINKS.two : '';
-      var canPay = !!link && zs === 'local';
+      var canPay = !!link && zs === 'local' && !needAddress;
       var pay = $('pay-now');
       pay.hidden = !canPay;
       if (canPay) pay.href = link + (link.indexOf('?') < 0 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(state.code);
-      $('pay-msg').textContent = canPay
+      $('pay-msg').textContent = needAddress && zs !== 'missing'
+        ? 'Add your street address above so we know where to deliver.'
+        : canPay
         ? 'Send your order first, then pay. Your order code ' + state.code + ' links the two.'
         : (n >= BULK.from || etsyLines().length) && zs === 'local' && STRIPE_LINKS.one
           ? 'Send us the order and we\'ll reply with a card payment link for $' + price + '.'
@@ -315,12 +323,14 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
     });
     $('basket-zip').value = state.zip;
     $('basket-zip').addEventListener('input', function (e) { state.zip = e.target.value.replace(/\D/g, '').slice(0, 5); e.target.value = state.zip; save(); render(); });
+    $('basket-address').value = state.address || '';
+    $('basket-address').addEventListener('input', function (e) { state.address = e.target.value; save(); render(); });
     $('basket-etsy').value = state.etsy || '';
     $('basket-etsy').addEventListener('input', function (e) { state.etsy = e.target.value; save(); render(); });
     $('basket-name').value = state.name;
     $('basket-name').addEventListener('input', function (e) { state.name = e.target.value.trim(); save(); render(); });
     ['send-whatsapp', 'send-email'].forEach(function (id) {
-      $(id).addEventListener('click', function (e) { if (this.getAttribute('aria-disabled') === 'true') { e.preventDefault(); $('basket-zip').focus(); } });
+      $(id).addEventListener('click', function (e) { if (this.getAttribute('aria-disabled') === 'true') { e.preventDefault(); (zipStatus() === 'missing' ? $('basket-zip') : $('basket-address')).focus(); } });
     });
     render();
   </script>

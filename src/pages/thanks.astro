@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { whatsappFor, WHATSAPP_DISPLAY, CONTACT_EMAIL } from '../data/designs';
+---
+<Base title="Thank you" description="Thanks for your SidJam Studio order.">
+  <section class="page-head">
+    <span class="kicker">Payment received</span>
+    <h1>Thank you! <em>Your tees are on the way.</em></h1>
+    <p class="lead">
+      We've got your payment<span id="order-ref"></span>. We'll message you on WhatsApp or email to set up
+      pickup in Fremont or your local delivery.
+    </p>
+    <p class="lead">
+      Didn't send us your order message yet? Please do, so we know your designs, colors and sizes:
+      <a href={whatsappFor()} rel="noopener" target="_blank">WhatsApp {WHATSAPP_DISPLAY}</a> or
+      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+    </p>
+    <div class="actions">
+      <a class="btn primary" href="/designs/">Back to the designs</a>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var code = '';
+      try {
+        var saved = JSON.parse(localStorage.getItem('sidjam-basket-v1') || 'null');
+        if (saved && saved.code) code = saved.code;
+        localStorage.removeItem('sidjam-basket-v1');
+      } catch (e) {}
+      if (code) document.getElementById('order-ref').textContent = ' for order ' + code;
+    })();
+  </script>
+</Base>
