@@ -36,14 +36,14 @@ export const designs: Design[] = [
 export function mailtoFor(title?: string): string {
   const subject = title ? `Design inquiry: ${title}` : 'Custom design inquiry';
   const body = title
-    ? `Hi SidJam Studio,\n\nI'm interested in the "${title}" design.\n\nTee color (black or white):\nSize:\nQuantity:\n\nThanks!`
-    : `Hi SidJam Studio,\n\nI'd like a custom design.\n\nWhat I have in mind:\nTee color (black or white):\nSize:\nQuantity:\n\nThanks!`;
+    ? `Hi SidJam Studio,\n\nI'm interested in the "${title}" design.\n\nTee color (black or white):\nTee style (crew neck or women's V-neck):\nPrint (front only or front + back):\nSize:\nQuantity:\n\nThanks!`
+    : `Hi SidJam Studio,\n\nI'd like a custom design.\n\nWhat I have in mind:\nTee color (black or white):\nTee style (crew neck or women's V-neck):\nPrint (front only or front + back):\nSize:\nQuantity:\n\nThanks!`;
   return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 export function whatsappFor(title?: string): string {
   const text = title
-    ? `Hi SidJam Studio! I'm interested in the "${title}" design. Tee color (black or white): Size: Quantity:`
+    ? `Hi SidJam Studio! I'm interested in the "${title}" design. Tee color (black or white): Tee style (crew neck or women's V-neck): Print (front only or front + back): Size: Quantity:`
     : `Hi SidJam Studio! I'd like to order a tee / ask about a custom design.`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
