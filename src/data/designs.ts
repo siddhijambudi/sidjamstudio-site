@@ -5,6 +5,12 @@ export const WHATSAPP_NUMBER = '14088005387';
 export const WHATSAPP_DISPLAY = '+1 408 800 5387';
 export const WHATSAPP_USERNAME = 'SidJamStudio';
 export const PRICING = { one: 20, two: 35 };
+export const SIZES = ['S', 'M', 'L'] as const;
+// Basket checkout covers 1 or 2 regular tees. 3+ goes to "message us for bulk pricing".
+export const MAX_BASKET = 2;
+// Stripe Payment Links (Dashboard → Payment Links). Leave empty until the Stripe account is set up:
+// the basket then shows only "Send order" and we reply with how to pay.
+export const STRIPE_LINKS = { one: '', two: '' };
 // Paste the Etsy shop link here to show an "Etsy shop" button on the Designs page.
 export const ETSY_URL = 'https://www.etsy.com/shop/SidJamStudio';
 

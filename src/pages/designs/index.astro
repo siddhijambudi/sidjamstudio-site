@@ -2,7 +2,8 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import Base from '../../layouts/Base.astro';
-import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_DISPLAY, WHATSAPP_USERNAME, PRICING } from '../../data/designs';
+import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_NUMBER, WHATSAPP_DISPLAY, WHATSAPP_USERNAME, PRICING, SIZES, MAX_BASKET, STRIPE_LINKS } from '../../data/designs';
+import { LOCAL_ZIPS, LOCAL_AREA } from '../../data/local-zips';
 
 // Add a content hash to each mockup URL so browsers fetch a fresh copy whenever an image changes.
 const imgUrl = (slug: string, color: 'black' | 'white') => {
@@ -47,7 +48,7 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
     <h2 class="section-title">The designs</h2>
     <div class="design-grid">
       {designs.map((d) => (
-        <article class={`design-card accent-${d.accent}`} data-design>
+        <article class={`design-card accent-${d.accent}`} data-design data-slug={d.slug} data-title={d.title}>
           <div class="design-img">
             <img src={imgUrl(d.slug, 'black')} alt={`${d.title} design on a black tee`} loading="lazy" width="1000" height="1000" data-black={imgUrl(d.slug, 'black')} data-white={imgUrl(d.slug, 'white')} />
           </div>
@@ -59,6 +60,13 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
               <button type="button" class="swatch white" data-color="white" aria-pressed="false" aria-label="Show on white tee"></button>
             </div>
             <span class="design-price">${PRICING.one} · 2 for ${PRICING.two}</span>
+            <div class="size-row">
+              <label for={`size-${d.slug}`}>Size</label>
+              <select id={`size-${d.slug}`} class="size-select">
+                {SIZES.map((s) => <option value={s} selected={s === 'M'}>{s}</option>)}
+              </select>
+              <button type="button" class="btn primary small add-basket">Add to basket</button>
+            </div>
             <a class="btn primary small" href={mailtoFor(d.title)}>Email us about this design</a>
             <a class="btn whatsapp small" href={whatsappFor(d.title)} rel="noopener" target="_blank">WhatsApp us</a>
           </div>
@@ -70,17 +78,17 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
   <section class="studio-band how-band">
     <div>
       <span class="kicker">How ordering works</span>
-      <h2>Just email or WhatsApp us.</h2>
+      <h2>Fill your basket, send us the order.</h2>
       <p>
-        Tees are <strong>${PRICING.one} for one</strong> or <strong>${PRICING.two} for two</strong> (mix and match). Front + back prints, women's V-necks, custom designs and concept + design cost a little more; we'll quote you. Ordering 3 or more? Ask us for bulk pricing.
-        Tell us the design, the tee color (black or white), your size and how many. We'll reply
-        with how to pay, and print it for you. No account, no checkout.
+        Tees are <strong>${PRICING.one} for one</strong> or <strong>${PRICING.two} for two</strong> (mix and match), with free pickup or
+        local delivery in {LOCAL_AREA}, CA. Somewhere else? Send the order anyway and we'll quote shipping.
+        Front + back prints, women's V-necks, custom designs and concept + design cost a little more; we'll quote you. Ordering 3 or more? Ask us for bulk pricing.
       </p>
     </div>
     <ul class="roadmap">
-      <li><strong>1. Pick a design</strong><span>from this page</span></li>
-      <li><strong>2. Email or WhatsApp us</strong><span>{CONTACT_EMAIL} · {WHATSAPP_DISPLAY} (@{WHATSAPP_USERNAME})</span></li>
-      <li><strong>3. We reply</strong><span>payment details · ${PRICING.one} for 1, ${PRICING.two} for 2</span></li>
+      <li><strong>1. Add tees to your basket</strong><span>pick the design, color and size (S, M, L)</span></li>
+      <li><strong>2. Send the order</strong><span>by WhatsApp or email · {WHATSAPP_DISPLAY} (@{WHATSAPP_USERNAME})</span></li>
+      <li><strong>3. Pay and pick up</strong><span>{STRIPE_LINKS.one ? 'pay by card from the basket' : 'we reply with how to pay'} · pickup or local delivery</span></li>
     </ul>
   </section>
 
@@ -100,6 +108,162 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       </div>
     </div>
   </section>
+
+
+  <button type="button" class="basket-fab" id="basket-open" aria-haspopup="dialog" hidden>
+    Basket <span class="basket-count" id="basket-count">0</span>
+  </button>
+
+  <dialog class="basket" id="basket" aria-labelledby="basket-title">
+    <div class="basket-head">
+      <h2 id="basket-title">Your basket</h2>
+      <button type="button" class="basket-close" id="basket-close" aria-label="Close basket">×</button>
+    </div>
+    <p class="basket-empty" id="basket-empty">Your basket is empty. Pick a design, a color and a size, then press “Add to basket”.</p>
+    <ul class="basket-items" id="basket-items"></ul>
+    <div id="basket-body">
+      <p class="basket-note warn" id="basket-bulk" hidden>
+        That's more than {MAX_BASKET} tees. For 3 or more we do bulk pricing: send the order and we'll quote you.
+      </p>
+      <fieldset class="basket-field">
+        <legend>How you'll get it</legend>
+        <label><input type="radio" name="handoff" value="pickup" checked /> Pickup in Fremont, CA (free)</label>
+        <label><input type="radio" name="handoff" value="delivery" /> Delivery (free in our local area, listed below)</label>
+      </fieldset>
+      <p class="basket-note">Free delivery area: {LOCAL_AREA}.</p>
+      <div class="basket-field" id="zip-row" hidden>
+        <label for="basket-zip">Delivery ZIP code</label>
+        <input id="basket-zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="94539" />
+        <p class="basket-note" id="zip-msg" aria-live="polite"></p>
+      </div>
+      <div class="basket-field">
+        <label for="basket-name">Your name</label>
+        <input id="basket-name" autocomplete="name" placeholder="So we know whose order it is" />
+      </div>
+      <div class="basket-total">
+        <span>Total</span>
+        <strong id="basket-total"></strong>
+      </div>
+      <p class="basket-ref">Order code <strong id="basket-code"></strong></p>
+      <div class="basket-actions">
+        <a class="btn whatsapp" id="send-whatsapp" rel="noopener" target="_blank">Send order on WhatsApp</a>
+        <a class="btn ghost" id="send-email">Send order by email</a>
+        <a class="btn primary" id="pay-now" rel="noopener" target="_blank" hidden>Pay now by card</a>
+      </div>
+      <p class="basket-note" id="pay-msg"></p>
+    </div>
+  </dialog>
+
+  <script is:inline define:vars={{ PRICING, MAX_BASKET, STRIPE_LINKS, LOCAL_ZIPS, WHATSAPP_NUMBER, CONTACT_EMAIL }}>
+    var KEY = 'sidjam-basket-v1';
+    var state = { items: [], code: '', handoff: 'pickup', zip: '', name: '' };
+    try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && Array.isArray(saved.items)) state = Object.assign(state, saved); } catch (e) {}
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+    function newCode() { return 'SJ-' + String(Math.floor(1000 + Math.random() * 9000)); }
+    if (!state.code) state.code = newCode();
+
+    var $ = function (id) { return document.getElementById(id); };
+    var dlg = $('basket'), fab = $('basket-open');
+    var localSet = {}; LOCAL_ZIPS.forEach(function (z) { localSet[z] = true; });
+
+    function zipStatus() {
+      if (state.handoff !== 'delivery') return 'local';
+      if (!/^\d{5}$/.test(state.zip)) return 'missing';
+      return localSet[state.zip] ? 'local' : 'far';
+    }
+    function priceFor(n) { return n === 1 ? PRICING.one : n === 2 ? PRICING.two : null; }
+
+    function orderText() {
+      var n = state.items.length, zs = zipStatus(), price = priceFor(n);
+      var lines = ['Hi SidJam Studio! New order ' + state.code + (state.name ? ' from ' + state.name : '') + ':', ''];
+      state.items.forEach(function (it, i) { lines.push((i + 1) + '. ' + it.title + ' – ' + it.color + ' tee, size ' + it.size); });
+      lines.push('');
+      if (state.handoff === 'pickup') lines.push('Pickup in Fremont');
+      else lines.push('Delivery to ZIP ' + (state.zip || '?') + (zs === 'far' ? ' (outside local area – please quote shipping)' : ''));
+      if (price && zs === 'local') lines.push('Total: $' + price);
+      else if (!price) lines.push('Please send bulk pricing for ' + n + ' tees.');
+      else lines.push('Please send the total with shipping.');
+      return lines.join('\n');
+    }
+
+    function render() {
+      var n = state.items.length, zs = zipStatus(), price = priceFor(n);
+      fab.hidden = n === 0 && !dlg.open;
+      $('basket-count').textContent = n;
+      $('basket-empty').hidden = n > 0;
+      $('basket-body').hidden = n === 0;
+      $('basket-bulk').hidden = n <= MAX_BASKET;
+      $('zip-row').hidden = state.handoff !== 'delivery';
+      $('basket-code').textContent = state.code;
+
+      var ul = $('basket-items'); ul.innerHTML = '';
+      state.items.forEach(function (it, i) {
+        var li = document.createElement('li');
+        var img = document.createElement('img'); img.src = it.img; img.alt = ''; img.width = 56; img.height = 56;
+        var txt = document.createElement('div');
+        var t = document.createElement('strong'); t.textContent = it.title;
+        var sub = document.createElement('span'); sub.textContent = it.color + ' tee · size ' + it.size;
+        txt.append(t, sub);
+        var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'basket-remove'; rm.textContent = 'Remove';
+        rm.setAttribute('aria-label', 'Remove ' + it.title);
+        rm.addEventListener('click', function () { state.items.splice(i, 1); save(); render(); });
+        li.append(img, txt, rm); ul.appendChild(li);
+      });
+
+      var zm = $('zip-msg');
+      zm.className = 'basket-note';
+      if (zs === 'missing') zm.textContent = 'Enter your 5-digit ZIP so we can check you are in our delivery area.';
+      else if (zs === 'far') { zm.textContent = 'That ZIP is outside our free delivery area. You can still order: we\'ll message you the price with shipping.'; zm.className = 'basket-note warn'; }
+      else zm.textContent = 'Great, you are in our free local delivery area.';
+
+      var total = $('basket-total');
+      if (!price) total.textContent = 'Bulk quote';
+      else if (zs === 'far') total.textContent = 'Quote with shipping';
+      else total.textContent = '$' + price + (n === 2 ? ' for 2 tees' : '');
+
+      var text = orderText(), ready = zs !== 'missing';
+      var wa = $('send-whatsapp'), em = $('send-email');
+      [wa, em].forEach(function (a) { a.classList.toggle('disabled', !ready); a.setAttribute('aria-disabled', String(!ready)); });
+      wa.href = ready ? 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text) : '#';
+      em.href = ready ? 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('Order ' + state.code) + '&body=' + encodeURIComponent(text) : '#';
+
+      var link = n === 1 ? STRIPE_LINKS.one : n === 2 ? STRIPE_LINKS.two : '';
+      var canPay = !!link && zs === 'local';
+      var pay = $('pay-now');
+      pay.hidden = !canPay;
+      if (canPay) pay.href = link + (link.indexOf('?') < 0 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(state.code);
+      $('pay-msg').textContent = canPay
+        ? 'Send your order first, then pay. Your order code ' + state.code + ' links the two.'
+        : 'Send us the order and we\'ll reply with how to pay.';
+    }
+
+    document.querySelectorAll('[data-design]').forEach(function (card) {
+      card.querySelector('.add-basket').addEventListener('click', function () {
+        var pressed = card.querySelector('.swatch[aria-pressed="true"]');
+        var color = pressed ? pressed.getAttribute('data-color') : 'black';
+        var img = card.querySelector('img');
+        state.items.push({ slug: card.dataset.slug, title: card.dataset.title, color: color, size: card.querySelector('.size-select').value, img: img.getAttribute('data-' + color) });
+        save(); render();
+        if (!dlg.open) dlg.showModal();
+      });
+    });
+    fab.addEventListener('click', function () { dlg.showModal(); render(); });
+    $('basket-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', render);
+    document.querySelectorAll('input[name="handoff"]').forEach(function (r) {
+      r.checked = r.value === state.handoff;
+      r.addEventListener('change', function () { state.handoff = r.value; save(); render(); });
+    });
+    $('basket-zip').value = state.zip;
+    $('basket-zip').addEventListener('input', function (e) { state.zip = e.target.value.replace(/\D/g, '').slice(0, 5); e.target.value = state.zip; save(); render(); });
+    $('basket-name').value = state.name;
+    $('basket-name').addEventListener('input', function (e) { state.name = e.target.value.trim(); save(); render(); });
+    ['send-whatsapp', 'send-email'].forEach(function (id) {
+      $(id).addEventListener('click', function (e) { if (this.getAttribute('aria-disabled') === 'true') { e.preventDefault(); $('basket-zip').focus(); } });
+    });
+    render();
+  </script>
 
   <script is:inline>
     document.querySelectorAll('[data-design]').forEach(function (card) {
