@@ -17,7 +17,6 @@ export interface Design {
 }
 
 export const designs: Design[] = [
-  { slug: 'srinathji-mukharvind', title: 'Shrinathji Mukharvind', art: 'Kutch Bharat + Pichhwai', region: 'Rajasthan & Gujarat', accent: 'grape' },
   { slug: 'warli-streetwear', title: 'Warli Streetwear', art: 'Warli', region: 'Maharashtra', accent: 'leaf' },
   { slug: 'madhubani-streetwear', title: 'Madhubani Streetwear', art: 'Madhubani', region: 'Bihar', accent: 'berry' },
   { slug: 'pattachitra-streetwear', title: 'Pattachitra Streetwear', art: 'Pattachitra', region: 'Odisha & West Bengal', accent: 'sun' },
