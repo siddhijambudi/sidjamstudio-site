@@ -17,6 +17,7 @@ export interface Design {
 }
 
 export const designs: Design[] = [
+  { slug: 'warli-peacock-mandala', title: 'Warli Peacock Mandala', art: 'Warli', region: 'Maharashtra', accent: 'berry' },
   { slug: 'warli-streetwear', title: 'Warli Streetwear', art: 'Warli', region: 'Maharashtra', accent: 'leaf' },
   { slug: 'madhubani-streetwear', title: 'Madhubani Streetwear', art: 'Madhubani', region: 'Bihar', accent: 'berry' },
   { slug: 'pattachitra-streetwear', title: 'Pattachitra Streetwear', art: 'Pattachitra', region: 'Odisha & West Bengal', accent: 'sun' },
