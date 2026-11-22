@@ -23,6 +23,7 @@ export interface Design {
 }
 
 export const designs: Design[] = [
+  { slug: 'kachhi-dance-duet', title: 'Kachhi Dance Duet', art: 'Kutch Bharat', region: 'Gujarat', accent: 'berry' },
   { slug: 'warli-peacock-mandala', title: 'Warli Peacock Mandala', art: 'Warli', region: 'Maharashtra', accent: 'berry' },
   { slug: 'warli-streetwear', title: 'Warli Streetwear', art: 'Warli', region: 'Maharashtra', accent: 'leaf' },
   { slug: 'madhubani-streetwear', title: 'Madhubani Streetwear', art: 'Madhubani', region: 'Bihar', accent: 'berry' },
