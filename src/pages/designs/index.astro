@@ -1,6 +1,15 @@
 ---
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import Base from '../../layouts/Base.astro';
 import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_DISPLAY, WHATSAPP_USERNAME, PRICING } from '../../data/designs';
+
+// Add a content hash to each mockup URL so browsers fetch a fresh copy whenever an image changes.
+const imgUrl = (slug: string, color: 'black' | 'white') => {
+  const file = `public/images/designs/${slug}-${color}.jpg`;
+  const v = createHash('md5').update(readFileSync(file)).digest('hex').slice(0, 8);
+  return `/images/designs/${slug}-${color}.jpg?v=${v}`;
+};
 ---
 <Base title="Designs" description="Indian folk art meets streetwear: original tee designs from SidJam Studio. Email us to order, or ask for a custom design.">
   <section class="page-head">
@@ -40,7 +49,7 @@ import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_DISP
       {designs.map((d) => (
         <article class={`design-card accent-${d.accent}`} data-design>
           <div class="design-img">
-            <img src={`/images/designs/${d.slug}-black.jpg`} alt={`${d.title} design on a black tee`} loading="lazy" width="1000" height="1000" data-slug={d.slug} />
+            <img src={imgUrl(d.slug, 'black')} alt={`${d.title} design on a black tee`} loading="lazy" width="1000" height="1000" data-black={imgUrl(d.slug, 'black')} data-white={imgUrl(d.slug, 'white')} />
           </div>
           <div class="design-body">
             <span class="tag">{d.art} · {d.region}</span>
@@ -98,7 +107,7 @@ import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_DISP
       card.querySelectorAll('.swatch').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var c = btn.getAttribute('data-color');
-          img.src = '/images/designs/' + img.getAttribute('data-slug') + '-' + c + '.jpg';
+          img.src = img.getAttribute('data-' + c);
           img.alt = img.alt.replace(/on a (black|white) tee/, 'on a ' + c + ' tee');
           card.querySelectorAll('.swatch').forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
         });
