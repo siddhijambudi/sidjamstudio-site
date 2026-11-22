@@ -340,7 +340,7 @@ h1 em { font-style: normal; color: var(--brand); }
 /* Basket */
 .size-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .size-row label { font-weight: 800; font-size: 14px; }
-.size-select, .basket input[type="text"], .basket input:not([type]), .basket input[inputmode] {
+.size-select, .basket textarea, .basket input[type="text"], .basket input:not([type]), .basket input[inputmode] {
   font: inherit; padding: 7px 10px; border-radius: 10px; border: 2px solid var(--line); background: var(--card); color: var(--ink);
 }
 .size-row .add-basket { margin: 0 0 0 auto; }
@@ -376,3 +376,21 @@ h1 em { font-style: normal; color: var(--brand); }
 .basket-actions { display: grid; gap: 8px; }
 .basket-actions .btn { text-align: center; }
 .basket-actions .btn.disabled { opacity: .45; }
+
+/* Prices & delivery */
+.info-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 18px; }
+@media (max-width: 900px) { .info-grid { grid-template-columns: 1fr; } }
+.info-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
+.info-card h3 { margin: 0 0 10px; font-size: 20px; }
+.info-card p { color: var(--ink-soft); margin: 10px 0 0; }
+.info-card p strong { color: var(--ink); }
+.table-wrap { overflow-x: auto; }
+.price-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.price-table th { text-align: left; font-size: 13px; color: var(--ink-soft); font-weight: 800; padding: 0 8px 6px 0; border-bottom: 2px solid var(--line); }
+.price-table td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--line); }
+.price-table td:first-child { font-weight: 800; white-space: nowrap; width: 38%; }
+.price-table td span { color: var(--ink-soft); }
+.nowrap { white-space: nowrap; }
+.studio-band p.mix-note { margin: 12px 0; padding: 12px 14px; border-left: 4px solid var(--brand); background: var(--card); border-radius: 10px; }
+.studio-band p.mix-note strong { color: var(--ink); }
+.basket textarea { resize: vertical; }

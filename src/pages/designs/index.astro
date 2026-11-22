@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import Base from '../../layouts/Base.astro';
-import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_NUMBER, WHATSAPP_DISPLAY, WHATSAPP_USERNAME, PRICING, SIZES, MAX_BASKET, STRIPE_LINKS } from '../../data/designs';
+import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_NUMBER, WHATSAPP_DISPLAY, WHATSAPP_USERNAME, PRICING, BULK, SIZES, STRIPE_LINKS } from '../../data/designs';
 import { LOCAL_ZIPS, LOCAL_AREA } from '../../data/local-zips';
 
 // Add a content hash to each mockup URL so browsers fetch a fresh copy whenever an image changes.
@@ -24,6 +24,10 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       <span><strong>1 tee</strong> ${PRICING.one}</span>
       <span class="dot" aria-hidden="true">·</span>
       <span><strong>2 tees</strong> ${PRICING.two}</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span><strong>3–9 tees</strong> ${BULK.each} each</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span><strong>{BULK.bigFrom}+ tees</strong> ${BULK.bigEach} each</span>
       <span class="price-note">front print on a classic crew-neck tee · mix &amp; match designs and colors</span>
     </div>
     <div class="extras">
@@ -34,7 +38,7 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
         <li><strong>Custom design</strong><span>you bring the idea or photo, we draw it in folk-art style</span></li>
         <li><strong>Concept + design</strong><span>tell us the occasion or person, we come up with the idea and design it</span></li>
       </ul>
-      <p class="bulk-note"><strong>Ordering 3 or more?</strong> Family, team, event or shop order: message us for bulk pricing.</p>
+      <p class="bulk-note"><strong>Ordering for family, a team or an event?</strong> 3 to 9 tees are ${BULK.each} each, {BULK.bigFrom} or more are ${BULK.bigEach} each. Just add them all to your basket.</p>
     </div>
     <div class="actions">
       <a class="btn primary" href={mailtoFor()}>Ask for a custom design</a>
@@ -42,6 +46,30 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       <a class="btn ghost" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
     </div>
     <p class="contact-line">WhatsApp: <a href={whatsappFor()} rel="noopener" target="_blank">{WHATSAPP_DISPLAY}</a> · username <strong>@{WHATSAPP_USERNAME}</strong></p>
+  </section>
+
+  <section class="studio-band custom-band">
+    <div>
+      <span class="kicker">Also from SidJam Studio</span>
+      <h2>Our Etsy shop: work &amp; job humor tees</h2>
+      <p>
+        Over on <a href={ETSY_URL} rel="noopener">our Etsy shop</a> we sell funny tees for the workday: witty, sarcastic lines and animal characters
+        about meetings, emails and deadlines, made for anyone who works for a living.
+        If you like one, email us the listing name at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and we'll sort it out.
+      </p>
+      <p class="mix-note">
+        <strong>Mix and match with our Indian folk art designs, same prices.</strong> Etsy tees count together with the designs below:
+        ${PRICING.one} for 1, ${PRICING.two} for 2, ${BULK.each} each for 3 to {BULK.bigFrom - 1}, ${BULK.bigEach} each for {BULK.bigFrom} or more.
+        Add the folk art tees to your basket, then list your Etsy picks in the basket's “Etsy tees” box and we'll count them in.
+      </p>
+      <p>
+        We can also create a custom design from your idea, your family's story, or a favorite art form.
+      </p>
+      <div class="actions">
+        {ETSY_URL && <a class="btn ghost" href={ETSY_URL} rel="noopener">Visit our Etsy shop</a>}
+        <a class="btn primary" href={mailtoFor()}>Start a custom design</a>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -80,9 +108,9 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       <span class="kicker">How ordering works</span>
       <h2>Fill your basket, send us the order.</h2>
       <p>
-        Tees are <strong>${PRICING.one} for one</strong> or <strong>${PRICING.two} for two</strong> (mix and match), with free pickup or
+        Tees are <strong>${PRICING.one} for one</strong> or <strong>${PRICING.two} for two</strong> (mix and match), ${BULK.each} each for 3 to 9 and ${BULK.bigEach} each for {BULK.bigFrom} or more, with free pickup or
         local delivery in {LOCAL_AREA}, CA. Somewhere else? Send the order anyway and we'll quote shipping.
-        Front + back prints, women's V-necks, custom designs and concept + design cost a little more; we'll quote you. Ordering 3 or more? Ask us for bulk pricing.
+        Front + back prints, women's V-necks, custom designs and concept + design cost a little more; we'll quote you.
       </p>
     </div>
     <ul class="roadmap">
@@ -92,22 +120,40 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
     </ul>
   </section>
 
-  <section class="studio-band custom-band">
-    <div>
-      <span class="kicker">Also from SidJam Studio</span>
-      <h2>Our Etsy shop: work &amp; job humor tees</h2>
-      <p>
-        Over on <a href={ETSY_URL} rel="noopener">our Etsy shop</a> we sell funny tees for the workday: witty, sarcastic lines and animal characters
-        about meetings, emails and deadlines, made for anyone who works for a living.
-        If you like one, email us the listing name at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and we'll sort it out.
-        We can also create a custom design from your idea, your family's story, or a favorite art form.
-      </p>
-      <div class="actions">
-        {ETSY_URL && <a class="btn ghost" href={ETSY_URL} rel="noopener">Visit our Etsy shop</a>}
-        <a class="btn primary" href={mailtoFor()}>Start a custom design</a>
+  <section class="pricing-info" id="prices">
+    <h2 class="section-title">Prices &amp; delivery</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>How we price tees</h3>
+        <div class="table-wrap">
+          <table class="price-table">
+            <thead><tr><th scope="col">Tees</th><th scope="col">Price</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><strong>${PRICING.one}</strong></td></tr>
+              <tr><td>2</td><td><strong>${PRICING.two}</strong> for both</td></tr>
+              <tr><td>3 to {BULK.bigFrom - 1}</td><td><strong>${BULK.each} each</strong> <span>(5 tees = ${5 * BULK.each})</span></td></tr>
+              <tr><td>{BULK.bigFrom} or more</td><td><strong>${BULK.bigEach} each</strong> <span>({BULK.bigFrom} tees = ${BULK.bigFrom * BULK.bigEach})</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Mix and match any designs, colors and sizes, including tees from <a href={ETSY_URL} rel="noopener">our Etsy shop</a>: the price depends only on how many tees you order. Add Etsy picks in the basket's “Etsy tees” box and they're counted in the total.
+          Prices are for a front print on a classic crew-neck tee. Front + back prints, women's V-necks and custom designs are quoted separately.</p>
+      </div>
+      <div class="info-card">
+        <h3>Pickup &amp; delivery</h3>
+        <p><strong>Free</strong> pickup in Fremont, or free delivery to {LOCAL_AREA}. Type your ZIP code in the basket to check.</p>
+        <p><strong>Anywhere else:</strong> you can still order. We add shipping based on your ZIP code and message you the total before you pay.</p>
+      </div>
+      <div class="info-card">
+        <h3>Paying</h3>
+        <p>Send us your order from the basket by WhatsApp or email. Every order gets a code like <strong class="nowrap">SJ-1234</strong> so we can match it up.</p>
+        <p>{STRIPE_LINKS.one
+          ? `For 1 or 2 tees in our local area, you can pay by card straight from the basket. For bigger orders or shipping, we'll send you a card payment link for the exact total.`
+          : `We'll reply with your total and how to pay.`}</p>
       </div>
     </div>
   </section>
+
 
 
   <button type="button" class="basket-fab" id="basket-open" aria-haspopup="dialog" hidden>
@@ -122,9 +168,12 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
     <p class="basket-empty" id="basket-empty">Your basket is empty. Pick a design, a color and a size, then press “Add to basket”.</p>
     <ul class="basket-items" id="basket-items"></ul>
     <div id="basket-body">
-      <p class="basket-note warn" id="basket-bulk" hidden>
-        That's more than {MAX_BASKET} tees. For 3 or more we do bulk pricing: send the order and we'll quote you.
-      </p>
+      <p class="basket-note" id="basket-bulk" hidden></p>
+      <div class="basket-field">
+        <label for="basket-etsy">Etsy tees (optional)</label>
+        <textarea id="basket-etsy" rows="2" placeholder="One per line: listing name, color, size"></textarea>
+        <p class="basket-note">Adding tees from our Etsy shop? Same prices, counted in your total.</p>
+      </div>
       <fieldset class="basket-field">
         <legend>How you'll get it</legend>
         <label><input type="radio" name="handoff" value="pickup" checked /> Pickup in Fremont, CA (free)</label>
@@ -154,9 +203,11 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
     </div>
   </dialog>
 
-  <script is:inline define:vars={{ PRICING, MAX_BASKET, STRIPE_LINKS, LOCAL_ZIPS, WHATSAPP_NUMBER, CONTACT_EMAIL }}>
+  <script is:inline define:vars={{ PRICING, BULK, STRIPE_LINKS, LOCAL_ZIPS, WHATSAPP_NUMBER, CONTACT_EMAIL }}>
     var KEY = 'sidjam-basket-v1';
-    var state = { items: [], code: '', handoff: 'pickup', zip: '', name: '' };
+    var state = { items: [], code: '', handoff: 'pickup', zip: '', name: '', etsy: '' };
+    function etsyLines() { return (state.etsy || '').split('\n').map(function (l) { return l.trim(); }).filter(Boolean); }
+    function teeCount() { return state.items.length + etsyLines().length; }
     try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && Array.isArray(saved.items)) state = Object.assign(state, saved); } catch (e) {}
     function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
     function newCode() { return 'SJ-' + String(Math.floor(1000 + Math.random() * 9000)); }
@@ -171,28 +222,34 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       if (!/^\d{5}$/.test(state.zip)) return 'missing';
       return localSet[state.zip] ? 'local' : 'far';
     }
-    function priceFor(n) { return n === 1 ? PRICING.one : n === 2 ? PRICING.two : null; }
+    function eachFor(n) { return n >= BULK.bigFrom ? BULK.bigEach : BULK.each; }
+    function priceFor(n) { return n === 1 ? PRICING.one : n === 2 ? PRICING.two : n * eachFor(n); }
 
     function orderText() {
-      var n = state.items.length, zs = zipStatus(), price = priceFor(n);
+      var n = teeCount(), zs = zipStatus(), price = priceFor(n);
       var lines = ['Hi SidJam Studio! New order ' + state.code + (state.name ? ' from ' + state.name : '') + ':', ''];
       state.items.forEach(function (it, i) { lines.push((i + 1) + '. ' + it.title + ' – ' + it.color + ' tee, size ' + it.size); });
+      etsyLines().forEach(function (l, i) { lines.push((state.items.length + i + 1) + '. Etsy: ' + l); });
       lines.push('');
       if (state.handoff === 'pickup') lines.push('Pickup in Fremont');
       else lines.push('Delivery to ZIP ' + (state.zip || '?') + (zs === 'far' ? ' (outside local area – please quote shipping)' : ''));
-      if (price && zs === 'local') lines.push('Total: $' + price);
-      else if (!price) lines.push('Please send bulk pricing for ' + n + ' tees.');
-      else lines.push('Please send the total with shipping.');
+      var priceLine = n >= BULK.from ? n + ' tees × $' + eachFor(n) + ' = $' + price : '$' + price;
+      if (zs === 'local') lines.push('Total: ' + priceLine);
+      else lines.push('Tees: ' + priceLine + ' + shipping. Please send the total with shipping.');
       return lines.join('\n');
     }
 
     function render() {
-      var n = state.items.length, zs = zipStatus(), price = priceFor(n);
-      fab.hidden = n === 0 && !dlg.open;
+      var n = teeCount(), zs = zipStatus(), price = priceFor(n);
+      fab.hidden = state.items.length === 0 && !dlg.open;
       $('basket-count').textContent = n;
-      $('basket-empty').hidden = n > 0;
-      $('basket-body').hidden = n === 0;
-      $('basket-bulk').hidden = n <= MAX_BASKET;
+      $('basket-empty').hidden = state.items.length > 0;
+      $('basket-body').hidden = state.items.length === 0;
+      var bulk = $('basket-bulk');
+      bulk.hidden = n < BULK.from;
+      bulk.textContent = n >= BULK.bigFrom
+        ? 'Bulk price: $' + BULK.bigEach + ' each for ' + BULK.bigFrom + ' or more tees.'
+        : 'Bulk price: $' + BULK.each + ' each for 3–9 tees. Add ' + (BULK.bigFrom - n) + ' more to get $' + BULK.bigEach + ' each.';
       $('zip-row').hidden = state.handoff !== 'delivery';
       $('basket-code').textContent = state.code;
 
@@ -217,9 +274,8 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       else zm.textContent = 'Great, you are in our free local delivery area.';
 
       var total = $('basket-total');
-      if (!price) total.textContent = 'Bulk quote';
-      else if (zs === 'far') total.textContent = 'Quote with shipping';
-      else total.textContent = '$' + price + (n === 2 ? ' for 2 tees' : '');
+      var label = '$' + price + (n === 2 ? ' for 2 tees' : n >= BULK.from ? ' (' + n + ' × $' + eachFor(n) + ')' : '');
+      total.textContent = zs === 'far' ? label + ' + shipping' : label;
 
       var text = orderText(), ready = zs !== 'missing';
       var wa = $('send-whatsapp'), em = $('send-email');
@@ -227,14 +283,16 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
       wa.href = ready ? 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text) : '#';
       em.href = ready ? 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('Order ' + state.code) + '&body=' + encodeURIComponent(text) : '#';
 
-      var link = n === 1 ? STRIPE_LINKS.one : n === 2 ? STRIPE_LINKS.two : '';
+      var link = etsyLines().length ? '' : n === 1 ? STRIPE_LINKS.one : n === 2 ? STRIPE_LINKS.two : '';
       var canPay = !!link && zs === 'local';
       var pay = $('pay-now');
       pay.hidden = !canPay;
       if (canPay) pay.href = link + (link.indexOf('?') < 0 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(state.code);
       $('pay-msg').textContent = canPay
         ? 'Send your order first, then pay. Your order code ' + state.code + ' links the two.'
-        : 'Send us the order and we\'ll reply with how to pay.';
+        : (n >= BULK.from || etsyLines().length) && zs === 'local' && STRIPE_LINKS.one
+          ? 'Send us the order and we\'ll reply with a card payment link for $' + price + '.'
+          : 'Send us the order and we\'ll reply with how to pay.';
     }
 
     document.querySelectorAll('[data-design]').forEach(function (card) {
@@ -257,6 +315,8 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
     });
     $('basket-zip').value = state.zip;
     $('basket-zip').addEventListener('input', function (e) { state.zip = e.target.value.replace(/\D/g, '').slice(0, 5); e.target.value = state.zip; save(); render(); });
+    $('basket-etsy').value = state.etsy || '';
+    $('basket-etsy').addEventListener('input', function (e) { state.etsy = e.target.value; save(); render(); });
     $('basket-name').value = state.name;
     $('basket-name').addEventListener('input', function (e) { state.name = e.target.value.trim(); save(); render(); });
     ['send-whatsapp', 'send-email'].forEach(function (id) {
