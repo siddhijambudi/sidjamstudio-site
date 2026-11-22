@@ -1,5 +1,10 @@
 // Indian folk art + streetwear designs. Mockups live in public/images/designs/<slug>-black.jpg and -white.jpg.
 export const CONTACT_EMAIL = 'hello@sidjamstudio.com';
+// WhatsApp: number in international format, digits only (used for wa.me links).
+export const WHATSAPP_NUMBER = '14088005387';
+export const WHATSAPP_DISPLAY = '+1 408 800 5387';
+export const WHATSAPP_USERNAME = 'SidJamStudio';
+export const PRICING = { one: 20, two: 35 };
 // Paste the Etsy shop link here to show an "Etsy shop" button on the Designs page.
 export const ETSY_URL = 'https://www.etsy.com/shop/SidJamStudio';
 
@@ -34,4 +39,11 @@ export function mailtoFor(title?: string): string {
     ? `Hi SidJam Studio,\n\nI'm interested in the "${title}" design.\n\nTee color (black or white):\nSize:\nQuantity:\n\nThanks!`
     : `Hi SidJam Studio,\n\nI'd like a custom design.\n\nWhat I have in mind:\nTee color (black or white):\nSize:\nQuantity:\n\nThanks!`;
   return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+export function whatsappFor(title?: string): string {
+  const text = title
+    ? `Hi SidJam Studio! I'm interested in the "${title}" design. Tee color (black or white): Size: Quantity:`
+    : `Hi SidJam Studio! I'd like to order a tee / ask about a custom design.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }

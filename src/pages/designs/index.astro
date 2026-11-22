@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { designs, mailtoFor, CONTACT_EMAIL, ETSY_URL } from '../../data/designs';
+import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_DISPLAY, WHATSAPP_USERNAME, PRICING } from '../../data/designs';
 ---
 <Base title="Designs" description="Indian folk art meets streetwear: original tee designs from SidJam Studio. Email us to order, or ask for a custom design.">
   <section class="page-head">
@@ -8,12 +8,20 @@ import { designs, mailtoFor, CONTACT_EMAIL, ETSY_URL } from '../../data/designs'
     <h1>Indian folk art, <em>worn loud.</em></h1>
     <p class="lead">
       Warli, Madhubani, Pattachitra, Kalamkari and more, redrawn with a streetwear attitude and
-      printed on black or white tees. See something you like? Email us and we'll take it from there.
+      printed on black or white tees. See something you like? Email or WhatsApp us and we'll take it from there.
     </p>
+    <div class="price-pill" aria-label="Pricing">
+      <span><strong>1 tee</strong> ${PRICING.one}</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span><strong>2 tees</strong> ${PRICING.two}</span>
+      <span class="price-note">mix &amp; match any designs and colors</span>
+    </div>
     <div class="actions">
       <a class="btn primary" href={mailtoFor()}>Ask for a custom design</a>
+      <a class="btn whatsapp" href={whatsappFor()} rel="noopener" target="_blank">Chat on WhatsApp</a>
       <a class="btn ghost" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
     </div>
+    <p class="contact-line">WhatsApp: <a href={whatsappFor()} rel="noopener" target="_blank">{WHATSAPP_DISPLAY}</a> · username <strong>@{WHATSAPP_USERNAME}</strong></p>
   </section>
 
   <section>
@@ -31,7 +39,9 @@ import { designs, mailtoFor, CONTACT_EMAIL, ETSY_URL } from '../../data/designs'
               <button type="button" class="swatch black" data-color="black" aria-pressed="true" aria-label="Show on black tee"></button>
               <button type="button" class="swatch white" data-color="white" aria-pressed="false" aria-label="Show on white tee"></button>
             </div>
+            <span class="design-price">${PRICING.one} · 2 for ${PRICING.two}</span>
             <a class="btn primary small" href={mailtoFor(d.title)}>Email us about this design</a>
+            <a class="btn whatsapp small" href={whatsappFor(d.title)} rel="noopener" target="_blank">WhatsApp us</a>
           </div>
         </article>
       ))}
@@ -41,16 +51,17 @@ import { designs, mailtoFor, CONTACT_EMAIL, ETSY_URL } from '../../data/designs'
   <section class="studio-band how-band">
     <div>
       <span class="kicker">How ordering works</span>
-      <h2>Just send us an email.</h2>
+      <h2>Just email or WhatsApp us.</h2>
       <p>
+        Tees are <strong>${PRICING.one} for one</strong> or <strong>${PRICING.two} for two</strong> (mix and match).
         Tell us the design, the tee color (black or white), your size and how many. We'll reply
-        with the price and how to pay, and print it for you. No account, no checkout.
+        with how to pay, and print it for you. No account, no checkout.
       </p>
     </div>
     <ul class="roadmap">
       <li><strong>1. Pick a design</strong><span>from this page</span></li>
-      <li><strong>2. Email us</strong><span>{CONTACT_EMAIL}</span></li>
-      <li><strong>3. We reply</strong><span>price + payment details</span></li>
+      <li><strong>2. Email or WhatsApp us</strong><span>{CONTACT_EMAIL} · {WHATSAPP_DISPLAY} (@{WHATSAPP_USERNAME})</span></li>
+      <li><strong>3. We reply</strong><span>payment details · ${PRICING.one} for 1, ${PRICING.two} for 2</span></li>
     </ul>
   </section>
 
