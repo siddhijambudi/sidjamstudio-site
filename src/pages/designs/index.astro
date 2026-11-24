@@ -6,6 +6,10 @@ import { designs, mailtoFor, whatsappFor, CONTACT_EMAIL, ETSY_URL, WHATSAPP_NUMB
 import { LOCAL_ZIPS, LOCAL_AREA } from '../../data/local-zips';
 
 // Add a content hash to each mockup URL so browsers fetch a fresh copy whenever an image changes.
+const assetUrl = (path: string) => {
+  const v = createHash('md5').update(readFileSync(`public/${path}`)).digest('hex').slice(0, 8);
+  return `/${path}?v=${v}`;
+};
 const imgUrl = (slug: string, color: 'black' | 'white') => {
   const file = `public/images/designs/${slug}-${color}.jpg`;
   const v = createHash('md5').update(readFileSync(file)).digest('hex').slice(0, 8);
@@ -100,6 +104,29 @@ const imgUrl = (slug: string, color: 'black' | 'white') => {
           </div>
         </article>
       ))}
+    </div>
+  </section>
+
+  <section class="studio-band video-band" aria-labelledby="made-title">
+    <div class="video-frame">
+      <video controls playsinline preload="none" poster={assetUrl('videos/tee-journey-poster.jpg')} width="720" height="1280">
+        <source src={assetUrl('videos/tee-journey.mp4')} type="video/mp4" />
+      </video>
+    </div>
+    <div>
+      <span class="kicker">Made by hand, at home</span>
+      <h2 id="made-title">How a SidJam tee gets made</h2>
+      <p>
+        Every tee is pressed by hand in our home studio. Watch a tee go from an idea on screen to a
+        finished shirt in about a minute and a half (sound on).
+      </p>
+      <ol class="make-steps">
+        <li><strong>Draw</strong><span>an original design, colored by hand</span></li>
+        <li><strong>Print</strong><span>the design as a DTF transfer once your order comes in</span></li>
+        <li><strong>Press</strong><span>it onto your tee with a heat press, one shirt at a time</span></li>
+        <li><strong>Test</strong><span>by washing, drying and stretching, so the print lasts</span></li>
+        <li><strong>Pack</strong><span>and hand it over or ship it to you</span></li>
+      </ol>
     </div>
   </section>
 
